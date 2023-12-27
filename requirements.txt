@@ -1,5 +1,3 @@
-Install with pip
-
 flask
 flask-SQLAlchemy
 flask-login
