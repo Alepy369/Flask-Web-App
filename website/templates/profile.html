@@ -30,7 +30,7 @@
                 {% if user.notes %}
                     {% for note in user.notes %}
                         <li class="list-group-item">
-                            {{ note.data + ' | Published at: ' + note.date.strftime('%H:%M') + ' - ' + user.first_name }}
+                            {{ note.data + ' | Published at: ' + note.date.strftime('%H:%M') }}
                         </li>
                     {% endfor %}
                 {% else %}
