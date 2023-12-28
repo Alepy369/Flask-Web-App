@@ -5,18 +5,31 @@
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item">
-        {{ note.data }}
+        {{ note.data + ' | Published at: ' + note.date.strftime('%H:%M') + ' - ' + user.first_name }}
         <button type="button" class="close" onClick="deleteNote({{ note.id }})">
             <span aria-hidden="true">&times;</span>
         </button>
     </li>
     {% endfor %}
 </ul>
-<form method="POST">
+<form id="noteForm" method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />
     <div align="center">
         <button type="submit" class="btn btn-primary">Add Note</button>
     </div>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#note').keypress(function(event) {
+            if (event.keyCode == 13 && !event.shiftKey) { // Check if Enter key is pressed without Shift
+                event.preventDefault(); // Prevent default form submission
+                $('#noteForm').submit(); // Submit the form
+            }
+        });
+    });
+</script>
 {% endblock %}
+
+

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}User Data{% endblock %}
+
+{% block content %}
+<h1 align="center">User Data</h1>
+<form method="POST">
+    <div class="form-group">
+        <h5 for="username">Username</h5>
+        <br />
+        {% if user.is_authenticated %}
+              <span>
+                  {{ current_user.first_name }}
+              </span>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <h5 for="email">Email Address</h5>
+        <br />
+        {% if user.is_authenticated %}
+            <span>
+                {{ current_user.email }}
+            </span>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <h5 for="notes">Notes</h5>
+        <br />
+        {% if user.is_authenticated %}
+            <ul class="list-group list-group-flush" id="notes">
+                {% if user.notes %}
+                    {% for note in user.notes %}
+                        <li class="list-group-item">
+                            {{ note.data + ' | Published at: ' + note.date.strftime('%H:%M') + ' - ' + user.first_name }}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>No notes added yet.</p>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
