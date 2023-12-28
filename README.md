@@ -1,6 +1,7 @@
 # Flask Web App
 
 - Authentication and authorization mechanisms integrated.
+- Timeout for sessions set.
 
 ## Setup & Installation
 
