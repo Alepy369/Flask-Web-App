@@ -1,4 +1,4 @@
-from flask import Flask, session, flash, request
+from flask import Flask, session, flash, request, render_template
 from os import path
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, logout_user, current_user
@@ -54,6 +54,7 @@ def create_app():
 
                 # Update the last activity time in the session for the current user
                 session['last_active'] = utc_now
+
 
     return app
 

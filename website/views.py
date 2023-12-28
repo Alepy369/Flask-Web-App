@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify 
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, User
 from . import db
 
 
@@ -40,3 +40,18 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+'''
+@views.route('/feed', methods=['GET', 'POST'])
+@login_required
+def feed():
+    if request.method == 'GET': 
+        all_notes = Note.query.all()#Gets all the notes from the db 
+        return render_template('feed.html', all_notes=all_notes, user=current_user)
+'''
+
+@views.route('/user', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'GET':
+        return render_template('profile.html', user=current_user)

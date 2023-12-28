@@ -3,6 +3,7 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+import re
 
 auth = Blueprint('auth', __name__)
 
@@ -50,6 +51,8 @@ def sign_up():
             flash('Passwords dont\'t match.', category='error')
         elif len(password1) < 8:
             flash('Passwords must have at least 8 characters', category='error')
+        elif not password_complexity(password1):
+            flash('Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character. Example: "Passw0rd!"', category='error')
         else:
             new_user= User(email=email, first_name=first_name, password=generate_password_hash(password1))
             db.session.add(new_user)
@@ -59,3 +62,8 @@ def sign_up():
             return redirect(url_for('auth.login'))
 
     return render_template("sign_up.html", user=current_user)
+
+def password_complexity(password):
+    # Password complexity pattern
+    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
+    return bool(re.match(pattern, password))
